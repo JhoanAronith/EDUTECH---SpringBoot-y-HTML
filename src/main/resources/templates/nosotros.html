@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edutech - Nosotros</title>
+        <!--Link Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!--Link Font Awesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <!--Link CSS-->
+        <link rel="stylesheet" href="css/nosotros.css">
+    </head>
+
+    <body>
+
+        <!-- Header -->
+        <div th:insert="~{header :: header}">"></div>
+
+        <!-- Main -->
+        <main>
+            <div class="container mt-5">
+
+                <!-- Sobre EduTech -->
+                <section class="mb-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 col-md-10">
+                            <h1 class="text-center mb-4 text-primary">Sobre EduTech</h1>
+                            <p class="text-center mb-4">
+                                EduTech es una plataforma educativa dedicada a ofrecer cursos en diversas áreas del conocimiento, 
+                                impulsando el aprendizaje continuo y el desarrollo personal y profesional.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- Nuestro Equipo -->
+                <section class="mb-5">
+                    <h2 class="text-center mb-4 text-primary">Nuestro Equipo</h2>
+                    <div class="row justify-content-center g-4">
+                        <!-- Miembro 1 -->
+                        <div class="col-md-3">
+                            <div class="card text-center shadow-sm p-3">
+                                <img src="images/nosotros/jhoan.jpg" class="card-img-top rounded-circle" alt="Miembro del equipo" style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Jhoan Muñoz</h5>
+                                    <p class="card-text">Fundador y CEO</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Miembro 2 -->
+                        <div class="col-md-3">
+                            <div class="card text-center shadow-sm p-3">
+                                <img src="images/nosotros/brenda.jpg" class="card-img-top rounded-circle" alt="Miembro del equipo" style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Brenda Ortiz</h5>
+                                    <p class="card-text">Directora de Contenido</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Miembro 3 -->
+                        <div class="col-md-3">
+                            <div class="card text-center shadow-sm p-3">
+                                <img src="images/nosotros/samuel.jpg" class="card-img-top rounded-circle" alt="Miembro del equipo" style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Samuel Samar</h5>
+                                    <p class="card-text">Desarrollador Web</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Miembro 4 -->
+                        <div class="col-md-3">
+                            <div class="card text-center shadow-sm p-3">
+                                <img src="images/nosotros/geanny.jpg" class="card-img-top rounded-circle" alt="Miembro del equipo" style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Geanny Cueva</h5>
+                                    <p class="card-text">Desarrollador Web</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contacto -->
+                <section class="mb-5 p-4 rounded shadow-lg bg-light">
+                    <h2 class="text-center mb-3 text-primary">Contáctanos</h2>
+                    <p class="text-center mb-0">
+                        Si tienes preguntas o deseas más información sobre nuestros cursos, no dudes en 
+                        <a href="#" class="text-decoration-none text-info fw-bold">
+                            enviarnos un correo electrónico
+                        </a>.
+                    </p>
+                </section>
+
+                <!-- Misión y Visión -->
+                <div class="row g-4 mb-5">
+                    <!-- Misión -->
+                    <section class="col-md-6 p-5 rounded shadow-lg bg-primary text-light">
+                        <h2 class="text-center mb-3">Nuestra Misión</h2>
+                        <p class="text-center mb-0">
+                            Nuestra misión es proporcionar acceso a educación de calidad a través de cursos en línea que sean accesibles, 
+                            prácticos y actualizados, ayudando a nuestros estudiantes a alcanzar sus metas académicas y profesionales.
+                        </p>
+                    </section>
+
+                    <!-- Visión -->
+                    <section class="col-md-6 p-5 rounded shadow-lg bg-info text-light">
+                        <h2 class="text-center mb-3">Nuestra Visión</h2>
+                        <p class="text-center mb-0">
+                            Aspiramos a ser líderes en la educación en línea, ofreciendo una amplia gama de cursos y recursos que faciliten 
+                            el aprendizaje a personas de todas las edades, en cualquier lugar del mundo.
+                        </p>
+                    </section>
+                </div>
+
+                <!-- Valores -->
+                <section class="mb-5 p-4 rounded shadow-lg bg-light">
+                    <h2 class="text-center mb-3 text-primary">Nuestros Valores</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex align-items-center">
+                            <span class="me-2">🔹</span> 
+                            <strong>Innovación:</strong> Nos comprometemos a ofrecer contenido actualizado y relevante.
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <span class="me-2">🔹</span>
+                            <strong>Accesibilidad:</strong> Creemos que la educación de calidad debe estar al alcance de todos.
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <span class="me-2">🔹</span>
+                            <strong>Excelencia:</strong> Buscamos la excelencia en la enseñanza y el aprendizaje.
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <span class="me-2">🔹</span>
+                            <strong>Compromiso:</strong> Estamos dedicados a apoyar a nuestros estudiantes en su camino educativo.
+                        </li>
+                    </ul>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <div th:insert="~{footer :: footer}">"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+                integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

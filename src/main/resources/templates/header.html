@@ -1,0 +1,60 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="/inicio">
+                <img src="images/logo-header-edutech.png" alt="Logo EduTech" height="50">
+            </a>
+
+            <!-- Botón menú responsivo -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Contenido del navbar -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Enlaces principales -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cursos">Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
+                </ul>
+
+                <!-- Acciones de usuario -->
+                <div class="d-flex align-items-center">
+                    <!-- Mostrar Perfil solo si el usuario está autenticado -->
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="btn btn-outline-primary me-2" href="/profile">
+                            <i class="fa fa-user fa-lg me-1"></i> Perfil
+                        </a>
+                    </th:block>
+
+                    <form sec:authorize='isAuthenticated()' method='post' action='/logout'>
+                        <input type='hidden' th:name='${_csrf.parameterName}'
+                               th:value='${_csrf.token}'/>
+                        <button type='submit' class='btn btn-danger'>Salir</button>
+                    </form>
+
+                    <!-- Mostrar Iniciar Sesión solo si el usuario NO está autenticado -->
+                    <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a class="btn btn-outline-primary" href="/login">
+                            <i class="fa fa-right-to-bracket me-1"></i> Ingresar
+                        </a>
+                    </th:block>
+                    
+                    <!-- Mostrar Iniciar Sesión solo si el usuario NO está autenticado -->
+                    <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a class="btn btn-primary" href="/registro">
+                            <i class="fa fa-right-to-bracket me-1"></i> Registrarme
+                        </a>
+                    </th:block>
+                    
+                </div>
+
+
+            </div>
+        </div>
+    </nav>
+</header>

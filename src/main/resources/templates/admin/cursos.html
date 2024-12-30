@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Usuarios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- Header -->
+        <div th:insert="~{/admin/headerAdmin :: header}"></div>
+
+        <main>
+
+            <div class="container mt-3">
+                <h3 class="card-text">Lista de Cursos</h3>
+                <p class="card-text">En esta sección puede visualizar todos los cursos registrados.</p>
+                <hr>
+
+                <hr>
+                <table class="table table-striped table-bordered table-hover mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Duración</th>
+                            <th>Categoría</th> 
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="curso : ${cursos}">
+                            <td th:text="${curso.idCurso}"></td>
+                            <td th:text="${curso.nombre}"></td>
+                            <td th:text="${curso.descripcion}"></td>
+                            <td th:text="${curso.duracion}"></td>
+                            <td th:text="${curso.categoria.nombre}"></td>
+                            <td>
+
+                                <a class="btn btn-danger btn-sm"
+                                   th:href="@{/administrador/cursos/eliminar(idCurso=${curso.idCurso})}">Eliminar</a>
+                                <a class="btn btn-primary btn-sm" 
+                                   th:href="@{/administrador/cursos/{cursoId}/modulos(cursoId=${curso.idCurso})}">Módulos</a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Sección para Mostrar Módulos -->
+                <div th:if="${cursoSeleccionadoId != null}">
+                    <h3>Módulos del Curso Seleccionado</h3>
+                    <table class="table table-striped table-bordered table-hover mt-3">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Orden</th>
+                                <th>Enlace Video</th>
+                                <th>Enlace PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="modulo : ${modulos}">
+                                <td th:text="${modulo.idModulo}"></td>
+                                <td th:text="${modulo.nombre}"></td>
+                                <td th:text="${modulo.descripcion}"></td>
+                                <td th:text="${modulo.orden}"></td>
+                                <td>
+                                    <a th:href="${modulo.enlaceVideo}" target="_blank">Ver Video</a>
+                                </td>
+                                <td>
+                                    <a th:href="${modulo.enlacePDF}" target="_blank">Ver PDF</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+                integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    </body>
+
+</html>

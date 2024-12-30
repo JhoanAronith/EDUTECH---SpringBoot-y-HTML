@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Nuevo Curso y Módulo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{/admin/headerAdmin :: header}"></div>
+
+    <div class="container mt-4">
+
+        <!-- Título principal -->
+        <div class="text-center mb-4">
+            <h2>Registrar Nuevo Curso y Módulo</h2>
+        </div>
+
+        <!-- Botón para abrir el modal de Categoría -->
+        <div class="mb-4 text-center">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevaCategoria">
+                Agregar Nueva Categoría
+            </button>
+        </div>
+
+        <!-- Modal para agregar nueva Categoría -->
+        <div class="modal fade" id="modalNuevaCategoria" tabindex="-1" aria-labelledby="modalNuevaCategoriaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalNuevaCategoriaLabel">Registrar Nueva Categoría</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Mensajes de éxito o error -->
+                        <div th:if="${successCategoria}" class="alert alert-success" role="alert">
+                            Categoría registrada con éxito.
+                        </div>
+                        <div th:if="${#fields.hasErrors('catDTO.nombre')}" class="alert alert-danger" role="alert">
+                            <span th:errors="*{catDTO.nombre}"></span>
+                        </div>
+
+                        <!-- Formulario -->
+                        <form th:action="@{/administrador/nuevaCategoria}" th:object="${catDTO}" method="post">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre de la Categoría</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" th:field="*{nombre}" placeholder="Ingrese el nombre de la categoría" required>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('nombre')}">
+                                    <span th:errors="*{nombre}"></span>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Registrar Categoría</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agregar un nuevo curso -->
+        <div class="form-container mb-5" style="max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h3 class="text-center mb-4">Registrar Nuevo Curso</h3>
+
+            <!-- Mensajes de éxito o error -->
+            <div th:if="${successCurso}" class="alert alert-success" role="alert">
+                Curso registrado con éxito.
+            </div>
+            <div th:if="${#fields.hasErrors('cursoDTO')}" class="alert alert-danger" role="alert">
+                Corrige los errores en el formulario.
+            </div>
+
+            <!-- Formulario -->
+            <form th:action="@{/administrador/nuevoCurso}" th:object="${cursoDTO}" method="post">
+                <!-- Campo para el nombre -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre del Curso</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" th:field="*{nombre}" placeholder="Ingrese el nombre del curso" required>
+                    <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('nombre')}">
+                        <span th:errors="*{nombre}"></span>
+                    </div>
+                </div>
+
+                <!-- Campo para la descripción -->
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" class="form-control" th:field="*{descripcion}" placeholder="Ingrese una descripción del curso" required></textarea>
+                    <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('descripcion')}">
+                        <span th:errors="*{descripcion}"></span>
+                    </div>
+                </div>
+
+                <!-- Campo para la duración -->
+                <div class="mb-3">
+                    <label for="duracion" class="form-label">Duración (horas)</label>
+                    <input type="number" id="duracion" name="duracion" class="form-control" th:field="*{duracion}" placeholder="Ingrese la duración en horas" required>
+                    <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('duracion')}">
+                        <span th:errors="*{duracion}"></span>
+                    </div>
+                </div>
+
+                <!-- Select para las categorías -->
+                <div class="mb-3">
+                    <label for="categoria" class="form-label">Categoría</label>
+                    <select class="form-select" th:field="*{categoria}" required>
+                        <option value="" disabled th:selected="${cursoDTO.categoria == null}">Seleccione una categoría</option>
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}"></option>
+                    </select>
+                </div>
+
+                <!-- Botón de envío -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Registrar Curso</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Botón para abrir el modal de Módulo -->
+        <div class="mb-4 text-center">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevoModulo">
+                Agregar Nuevo Módulo
+            </button>
+        </div>
+
+        <!-- Modal para agregar nuevo Módulo -->
+        <div class="modal fade" id="modalNuevoModulo" tabindex="-1" aria-labelledby="modalNuevoModuloLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalNuevoModuloLabel">Registrar Nuevo Módulo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Mensajes de éxito o error -->
+                        <div th:if="${successCategoria}" class="alert alert-success" role="alert">
+                            Módulo registrado con éxito.
+                        </div>
+                        <div th:if="${#fields.hasErrors('catDTO.nombre')}" class="alert alert-danger" role="alert">
+                            <span th:errors="*{catDTO.nombre}"></span>
+                        </div>
+
+                        <!-- Formulario para agregar un nuevo módulo -->
+                        <form th:action="@{/administrador/nuevoModulo}" th:object="${moduloDTO}" method="post">
+                            <!-- Campo para el nombre -->
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre del Módulo</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" th:field="*{nombre}" placeholder="Ingrese el nombre del módulo" required>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('nombre')}">
+                                    <span th:errors="*{nombre}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Campo para la descripción -->
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <textarea id="descripcion" name="descripcion" class="form-control" th:field="*{descripcion}" placeholder="Ingrese una descripción del módulo" required></textarea>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('descripcion')}">
+                                    <span th:errors="*{descripcion}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Campo para el orden -->
+                            <div class="mb-3">
+                                <label for="orden" class="form-label">Orden</label>
+                                <input type="number" id="orden" name="orden" class="form-control" th:field="*{orden}" placeholder="Ingrese el orden del módulo" required>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('orden')}">
+                                    <span th:errors="*{orden}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Campo para el enlace del video -->
+                            <div class="mb-3">
+                                <label for="enlaceVideo" class="form-label">Enlace del Video</label>
+                                <input type="url" id="enlaceVideo" name="enlaceVideo" class="form-control" th:field="*{enlaceVideo}" placeholder="Ingrese el enlace del video" required>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('enlaceVideo')}">
+                                    <span th:errors="*{enlaceVideo}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Campo para el enlace del PDF -->
+                            <div class="mb-3">
+                                <label for="enlacePDF" class="form-label">Enlace del PDF</label>
+                                <input type="url" id="enlacePDF" name="enlacePDF" class="form-control" th:field="*{enlacePDF}" placeholder="Ingrese el enlace del PDF" required>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('enlacePDF')}">
+                                    <span th:errors="*{enlacePDF}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Select para los cursos -->
+                            <div class="mb-3">
+                                <label for="cursoId" class="form-label">Curso</label>
+                                <select id="cursoId" name="cursoId" class="form-select" th:field="*{cursoId}" required>
+                                    <option value="" disabled th:selected="${moduloDTO.cursoId == null}">Seleccione un curso</option>
+                                    <option th:each="curso : ${cursos}" th:value="${curso.idCurso}" th:text="${curso.nombre}"></option>
+                                </select>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('cursoId')}">
+                                    <span th:errors="*{cursoId}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Botón de envío -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Registrar Módulo</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

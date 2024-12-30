@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <title>Curso: [[${curso.nombre}]] - Edutech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/inicio.css">
+    <style>
+        .accordion-button:not(.collapsed) {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        #video-player {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div th:insert="~{header :: header}"></div>
+
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center" th:text="${curso.nombre}"></h1>
+
+        <div class="accordion" id="accordionModulos">
+            <div th:each="modulo : ${modulos}" class="accordion-item">
+                <h2 class="accordion-header" th:id="'heading-' + ${modulo.idModulo}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse-' + ${modulo.idModulo}" aria-expanded="false" th:aria-controls="'collapse-' + ${modulo.idModulo}">
+                        <i class="fas fa-folder-open me-2"></i>
+                        <span th:text="${modulo.nombre}"></span>
+                    </button>
+                </h2>
+                <div th:id="'collapse-' + ${modulo.idModulo}" class="accordion-collapse collapse" th:aria-labelledby="'heading-' + ${modulo.idModulo}" data-bs-parent="#accordionModulos">
+                    <div class="accordion-body">
+                        <p th:text="${modulo.descripcion}"></p>
+                        <button class="btn btn-primary btn-icon ver-video-btn" th:data-video-link="${modulo.enlaceVideo}" type="button">
+                            <i class="fas fa-play-circle"></i> Ver Video
+                        </button>
+                        <a class="btn btn-primary btn-icon" th:href="${modulo.enlacePDF}" target="_blank">
+                            <i class="fas fa-file-pdf"></i> Abrir PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor para el reproductor de video -->
+        <iframe id="video-player"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <div th:insert="~{footer :: footer}"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const videoPlayer = document.getElementById('video-player');
+            document.querySelectorAll('.ver-video-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    let videoLink = this.getAttribute('data-video-link');
+
+                    if (videoLink) {
+                        // Transformar enlace de YouTube en formato embebible
+                        const videoIdMatch = videoLink.match(/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/) || videoLink.match(/youtu.be\/([^?&]+)/);
+                        if (videoIdMatch) {
+                            const videoId = videoIdMatch[1];
+                            videoLink = `https://www.youtube.com/embed/${videoId}`;
+
+                            // Mostrar el iframe y cargar el enlace del video embebido
+                            videoPlayer.style.display = 'block';
+                            videoPlayer.src = videoLink;
+                        } else {
+                            alert('El enlace proporcionado no es un enlace válido de YouTube.');
+                        }
+                    } else {
+                        alert('El enlace al video no está disponible.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
